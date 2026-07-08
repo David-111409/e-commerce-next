@@ -1,0 +1,21 @@
+# Dependencies
+**/node_modules
+
+# Build
+**/.next
+**/dist
+**/build
+
+# Strapi
+**/.cache
+**/.tmp
+
+# Logs
+*.log
+
+# Environment
+**/.env
+**/.env.local
+
+# macOS
+.DS_Store
