@@ -72,7 +72,7 @@ const MobileMenu = () => {
             <div className="mt-4 flex flex-col gap-3">
               <Link
                 href="/login"
-                className="rounded-md bg-primary py-2 text-center text-white hover:opacity-90 transition"
+                className="rounded-md bg-primary py-2 text-center text-white hover:bg-teal-500 transition"
               >
                 Login
               </Link>
