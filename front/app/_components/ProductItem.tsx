@@ -25,6 +25,7 @@ export type Product = {
 };
 
 function ProductItem({ product }: { product: Product }) {
+  console.log(product);
   const { documentId, title, price, category, image } = product;
   return (
     <Link
@@ -46,9 +47,7 @@ function ProductItem({ product }: { product: Product }) {
           </h2>
         </div>
         <div className="flex items-center gap-2 ml-0.5">
-          <span className="text-lg font-bold text-teal-600">
-            ${price.toFixed(2)}
-          </span>
+          <span className="text-lg font-bold text-teal-600">${price}</span>
 
           <span className="text-sm text-gray-400 line-through">
             ${(price * 1.25).toFixed(2)}

@@ -3,7 +3,7 @@ import { Roboto } from "next/font/google";
 import type { Metadata } from "next";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
-
+import { ClerkProvider } from "@clerk/nextjs";
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["700"],
@@ -20,12 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={roboto.className}>
-      <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={roboto.className}>
+        <body className="min-h-full flex flex-col">
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -14,27 +14,31 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "blocks"
-    },
-    "price": {
-      "type": "decimal"
+    "instantDelivery": {
+      "type": "boolean"
     },
     "image": {
       "type": "media",
       "multiple": false,
+      "required": true,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
+        "images"
       ]
     },
     "category": {
       "type": "string"
     },
-    "instantDelivery": {
-      "type": "boolean"
+    "price": {
+      "type": "decimal"
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "cart_item": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cart-item.cart-item",
+      "mappedBy": "product"
     }
   }
 }

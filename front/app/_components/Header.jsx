@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
+
 const Header = () => {
   const links = [
     { name: "Home", href: "/" },
@@ -35,21 +37,18 @@ const Header = () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <Link
-                className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-500"
-                href="/login"
-              >
-                Login
-              </Link>
+              <SignInButton mode="modal">
+                <button className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-500">
+                  Login
+                </button>
+              </SignInButton>
 
-              <Link
-                className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-500/75 sm:block"
-                href="/register"
-              >
-                Register
-              </Link>
+              <SignUpButton mode="modal">
+                <button className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-500/75 sm:block">
+                  Register
+                </button>
+              </SignUpButton>
             </div>
-
             <MobileMenu />
           </div>
         </div>
