@@ -34,9 +34,9 @@
     "description": {
       "type": "blocks"
     },
-    "cart_item": {
+    "cart_items": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::cart-item.cart-item",
       "mappedBy": "product"
     }

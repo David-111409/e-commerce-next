@@ -10,7 +10,7 @@ const Hero = () => {
           </h1>
 
           <p className="mt-4 text-base text-pretty text-gray-700 sm:text-lg/relaxed">
-            Start Exploring State of the Art Assets Now!
+            Start Exploring Courses of Tech Right Now!
           </p>
 
           <div className="mt-4 flex flex-col items-center gap-4 sm:mt-6 sm:flex-row sm:justify-center">

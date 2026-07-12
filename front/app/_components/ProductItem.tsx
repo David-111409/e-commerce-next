@@ -25,7 +25,6 @@ export type Product = {
 };
 
 function ProductItem({ product }: { product: Product }) {
-  console.log(product);
   const { documentId, title, price, category, image } = product;
   return (
     <Link

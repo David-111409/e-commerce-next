@@ -2,23 +2,48 @@
 
 import { ShoppingCart } from "lucide-react";
 import { SignInButton, useAuth } from "@clerk/nextjs";
+import { useCart } from "@/context/CartContext";
 import { Product } from "./ProductItem";
-
+import { toast } from "sonner";
 type AddToCartButtonProps = {
   product: Product;
 };
 
 export default function AddToCartButton({ product }: AddToCartButtonProps) {
   const { isSignedIn } = useAuth();
+  const { refreshCartCount } = useCart();
 
   const handleAddToCart = async () => {
-    console.log(product);
+    try {
+      const response = await fetch("/api/cart-item", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: product.documentId,
+        }),
+      });
 
-    // لاحقًا:
-    // await axios.post("/api/cart-items", {
-    //   productId: product.id,
-    //   quantity: 1,
-    // });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      // تحديث رقم السلة مباشرة
+      refreshCartCount();
+      toast.success("Added to cart", {
+        description: `${product.title} has been added successfully.`,
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong", {
+        description: "We couldn't add this product to your cart.",
+        duration: 2500,
+      });
+    }
   };
 
   if (!isSignedIn) {

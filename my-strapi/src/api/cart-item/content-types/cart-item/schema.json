@@ -15,13 +15,20 @@
       "type": "integer",
       "required": true,
       "default": 1,
-      "unique": false
+      "unique": false,
+      "max": 10
     },
     "product": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::product.product",
-      "inversedBy": "cart_item"
+      "inversedBy": "cart_items"
+    },
+    "cart": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cart.cart",
+      "inversedBy": "cart_items"
     }
   }
 }

@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
+import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "sonner";
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["700"],
@@ -21,13 +24,21 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={roboto.className}>
-        <body className="min-h-full flex flex-col">
-          <Header />
-          {children}
-          <Footer />
-        </body>
-      </html>
+      <CartProvider>
+        <html lang="en" className={roboto.className}>
+          <body className="min-h-full flex flex-col">
+            <Header />
+            {children}
+            <Toaster
+              position="top-right"
+              richColors
+              closeButton
+              expand={true}
+            />
+            <Footer />
+          </body>
+        </html>
+      </CartProvider>
     </ClerkProvider>
   );
 }
