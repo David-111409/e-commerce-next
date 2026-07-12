@@ -30,7 +30,7 @@ export default function RootLayout({
             <Header />
             {children}
             <Toaster
-              position="top-right"
+              position="top-center"
               richColors
               closeButton
               expand={true}

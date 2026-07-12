@@ -10,8 +10,9 @@ import {
 
 type CartContextType = {
   cartItemsCount: number;
-  setCartItemsCount: (count: number) => void;
-  refreshCartCount: () => void;
+  refreshCartCount: () => Promise<void>;
+  increaseCartCount: () => void;
+  decreaseCartCount: () => void;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -29,6 +30,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCartItemsCount(data.count);
   }
 
+  function increaseCartCount() {
+    setCartItemsCount((count) => count + 1);
+  }
+
+  function decreaseCartCount() {
+    setCartItemsCount((count) => Math.max(0, count - 1));
+  }
+
   useEffect(() => {
     refreshCartCount();
   }, []);
@@ -37,8 +46,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     <CartContext.Provider
       value={{
         cartItemsCount,
-        setCartItemsCount,
         refreshCartCount,
+        increaseCartCount,
+        decreaseCartCount,
       }}
     >
       {children}

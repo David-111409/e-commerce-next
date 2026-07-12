@@ -30,7 +30,10 @@ export async function POST(request: Request) {
       existingItem.quantity + 1
     );
 
-    return NextResponse.json(updatedItem);
+    return NextResponse.json({
+      item: updatedItem,
+      isNewItem: false,
+    });
   }
 
   const newItem = await createCartItem({
@@ -39,7 +42,10 @@ export async function POST(request: Request) {
     cart: cart.documentId,
   });
 
-  return NextResponse.json(newItem);
+  return NextResponse.json({
+    item: newItem,
+    isNewItem: true,
+  });
 }
 
 export async function PUT(request: Request) {

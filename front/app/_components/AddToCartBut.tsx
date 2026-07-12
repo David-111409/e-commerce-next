@@ -11,7 +11,7 @@ type AddToCartButtonProps = {
 
 export default function AddToCartButton({ product }: AddToCartButtonProps) {
   const { isSignedIn } = useAuth();
-  const { refreshCartCount } = useCart();
+  const { increaseCartCount } = useCart();
 
   const handleAddToCart = async () => {
     try {
@@ -32,7 +32,9 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       }
 
       // تحديث رقم السلة مباشرة
-      refreshCartCount();
+      if (data.isNewItem) {
+        increaseCartCount();
+      }
       toast.success("Added to cart", {
         description: `${product.title} has been added successfully.`,
         duration: 2000,

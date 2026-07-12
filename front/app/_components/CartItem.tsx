@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type CartItemProps = {
   item: {
@@ -24,7 +24,7 @@ type CartItemProps = {
 
 export default function CartItem({ item }: CartItemProps) {
   const router = useRouter();
-  const { refreshCartCount } = useCart();
+  const { decreaseCartCount } = useCart();
   async function updateQuantity(quantity: number) {
     if (quantity < 1) return;
 
@@ -35,7 +35,6 @@ export default function CartItem({ item }: CartItemProps) {
         quantity,
       }),
     });
-
     router.refresh();
   }
 
@@ -49,13 +48,12 @@ export default function CartItem({ item }: CartItemProps) {
         throw new Error("Failed to delete item");
       }
 
-      refreshCartCount();
+      decreaseCartCount();
 
       toast.success("Removed from cart", {
         description: `${item.product.title} has been removed.`,
         duration: 2000,
       });
-
       router.refresh();
     } catch (error) {
       toast.error("Delete failed", {
