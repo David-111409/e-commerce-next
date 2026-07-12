@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ShoppingCart } from "lucide-react";
 import { Product } from "./ProductItem";
+import AddToCartButton from "./AddToCartBut";
 
 async function ProductDetails({ product }: { product: Product }) {
   const { title, price, category, description, image, instantDelivery } =
@@ -39,10 +39,7 @@ async function ProductDetails({ product }: { product: Product }) {
           </span>
         </div>
 
-        <button className="mt-10 cursor-pointer flex w-full items-center justify-center gap-2 rounded-lg bg-teal-600 px-6 py-4 text-lg font-semibold text-white transition hover:bg-teal-700">
-          <ShoppingCart size={22} />
-          Add to Cart
-        </button>
+        <AddToCartButton product={product} />
 
         <div className="mt-8 rounded-lg border p-5">
           <h3 className="mb-3 text-lg font-semibold">This course includes</h3>

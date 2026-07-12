@@ -1,15 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
+import { ShoppingCart } from "lucide-react";
 import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+const links = [
+  { name: "Home", href: "/" },
+  { name: "Explore", href: "/explore" },
+  { name: "Projects", href: "/projects" },
+  { name: "About Us", href: "/about" },
+  { name: "Contact Us", href: "/contact" },
+];
 const Header = () => {
-  const links = [
-    { name: "Home", href: "/" },
-    { name: "Explore", href: "/explore" },
-    { name: "Projects", href: "/projects" },
-    { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
-  ];
+  const cartItemsCount = 3;
   return (
     <header className="z-10 bg-white shadow-md">
       <div className="mx-auto  max-w-7xl flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -52,6 +54,18 @@ const Header = () => {
 
               <Show when="signed-in">
                 <div className="flex items-center gap-4">
+                  <Link
+                    href="/cart"
+                    className="relative flex items-center justify-center"
+                  >
+                    <ShoppingCart className="h-6 w-6 text-gray-700 transition hover:text-primary" />
+
+                    {cartItemsCount > 0 && (
+                      <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+                        {cartItemsCount}
+                      </span>
+                    )}
+                  </Link>
                   <UserButton />
                 </div>
               </Show>
