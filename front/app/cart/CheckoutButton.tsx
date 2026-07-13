@@ -34,7 +34,7 @@ export default function CheckoutButton() {
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className="w-full rounded-lg bg-teal-600 py-3 text-lg font-semibold text-white transition hover:bg-teal-700 disabled:opacity-50"
+      className="w-full cursor-pointer rounded-lg bg-teal-600 py-3 text-lg font-semibold text-white transition hover:bg-teal-700 disabled:opacity-50"
     >
       {loading ? "Redirecting..." : "Proceed to Checkout"}
     </button>

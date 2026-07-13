@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import CartItem from "../_components/CartItem";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import CheckoutButton from "../_components/CheckoutButton";
+import CheckoutButton from "./CheckoutButton";
 type CartItem = {
   documentId: string;
   quantity: number;
