@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import CartItem from "../_components/CartItem";
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import CheckoutButton from "../_components/CheckoutButton";
 type CartItem = {
   documentId: string;
   quantity: number;
@@ -70,7 +71,7 @@ export default async function CartPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
-      <h1 className="mb-8 text-3xl font-bold">Shopping Cart</h1>
+      <h1 className="mb-4 text-3xl font-bold">Shopping Cart</h1>
 
       <div className="space-y-5">
         {cart.cart_items?.map((item) => (
@@ -78,9 +79,21 @@ export default async function CartPage() {
         ))}
       </div>
 
-      <div className="mt-10 flex justify-between border-t pt-6">
-        <h2 className="text-2xl font-bold">Total</h2>
-        <p className="text-2xl font-bold">${total?.toFixed(2)}</p>
+      <div className="mt-10 rounded-xl border bg-white p-6 shadow-sm">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Total</h2>
+
+          <p className="text-2xl font-bold text-teal-600">
+            ${total?.toFixed(2)}
+          </p>
+        </div>
+
+        <p className="mb-6 text-sm text-gray-500">
+          Note: All purchased courses will be delivered to your email address
+          after successful payment.
+        </p>
+
+        <CheckoutButton />
       </div>
     </main>
   );
