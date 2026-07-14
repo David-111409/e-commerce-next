@@ -27,20 +27,32 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
 
       const data = await response.json();
 
+      // المنتج موجود بالفعل
       if (!response.ok) {
+        if (data.message === "Product already in cart") {
+          toast.warning("Already in cart", {
+            description: `${product.title} is already in your cart.`,
+            duration: 2000,
+          });
+
+          return;
+        }
+
         throw new Error(data.message || "Something went wrong");
       }
 
-      // تحديث رقم السلة مباشرة
+      // إضافة منتج جديد
       if (data.isNewItem) {
         increaseCartCount();
       }
+
       toast.success("Added to cart", {
         description: `${product.title} has been added successfully.`,
         duration: 2000,
       });
     } catch (error) {
       console.error(error);
+
       toast.error("Something went wrong", {
         description: "We couldn't add this product to your cart.",
         duration: 2500,

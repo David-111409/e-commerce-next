@@ -37,7 +37,7 @@ export async function POST() {
     payment_method_types: ["card"],
 
     line_items: cartItems.map((item: any) => ({
-      quantity: item.quantity,
+      quantity: 1,
 
       price_data: {
         currency: "usd",

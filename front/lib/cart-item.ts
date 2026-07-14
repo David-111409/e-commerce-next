@@ -8,23 +8,9 @@ export async function getCartItems(cartId: string) {
   return response.data.data;
 }
 
-export async function createCartItem(data: {
-  quantity: number;
-  product: string;
-  cart: string;
-}) {
+export async function createCartItem(data: { product: string; cart: string }) {
   const response = await privateApi.post("/cart-items", {
     data,
-  });
-
-  return response.data.data;
-}
-
-export async function updateCartItem(documentId: string, quantity: number) {
-  const response = await privateApi.put(`/cart-items/${documentId}`, {
-    data: {
-      quantity,
-    },
   });
 
   return response.data.data;

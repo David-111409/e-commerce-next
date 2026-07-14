@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 type CartItemProps = {
   item: {
     documentId: string;
-    quantity: number;
     product: {
       documentId: string;
       title: string;
@@ -25,18 +24,6 @@ type CartItemProps = {
 export default function CartItem({ item }: CartItemProps) {
   const router = useRouter();
   const { decreaseCartCount } = useCart();
-  async function updateQuantity(quantity: number) {
-    if (quantity < 1) return;
-
-    await fetch("/api/cart-item", {
-      method: "PUT",
-      body: JSON.stringify({
-        documentId: item.documentId,
-        quantity,
-      }),
-    });
-    router.refresh();
-  }
 
   async function handleDelete() {
     try {
@@ -87,22 +74,6 @@ export default function CartItem({ item }: CartItemProps) {
 
           <div className="mt-3 flex items-center gap-3">
             <button
-              onClick={() => updateQuantity(item.quantity - 1)}
-              className="rounded border p-2 cursor-pointer"
-            >
-              <Minus size={18} />
-            </button>
-
-            <span className="w-5 text-center">{item.quantity}</span>
-
-            <button
-              onClick={() => updateQuantity(item.quantity + 1)}
-              className="rounded border p-2 cursor-pointer"
-            >
-              <Plus size={18} />
-            </button>
-
-            <button
               onClick={handleDelete}
               className="ml-3 text-red-500 cursor-pointer"
             >
@@ -112,9 +83,7 @@ export default function CartItem({ item }: CartItemProps) {
         </div>
       </div>
 
-      <p className="text-lg font-bold">
-        ${(item.product.price * item.quantity).toFixed(2)}
-      </p>
+      <p className="text-lg font-bold">${item.product.price.toFixed(2)}</p>
     </div>
   );
 }

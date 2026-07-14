@@ -5,7 +5,6 @@ import Link from "next/link";
 import CheckoutButton from "./CheckoutButton";
 type CartItem = {
   documentId: string;
-  quantity: number;
   product: {
     documentId: string;
     title: string;
@@ -65,7 +64,7 @@ export default async function CartPage() {
   }
 
   const total = cart.cart_items?.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
+    (sum, item) => sum + item.product.price,
     0
   );
 

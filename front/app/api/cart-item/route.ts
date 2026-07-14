@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { getCartByClerkId, createCart } from "@/lib/cart";
-import { getCartItems, createCartItem, updateCartItem } from "@/lib/cart-item";
+import { getCartItems, createCartItem } from "@/lib/cart-item";
 
 export async function POST(request: Request) {
   const { userId } = await auth();
@@ -25,19 +25,17 @@ export async function POST(request: Request) {
   );
 
   if (existingItem) {
-    const updatedItem = await updateCartItem(
-      existingItem.documentId,
-      existingItem.quantity + 1
+    return NextResponse.json(
+      {
+        message: "Product already in cart",
+      },
+      {
+        status: 400,
+      }
     );
-
-    return NextResponse.json({
-      item: updatedItem,
-      isNewItem: false,
-    });
   }
 
   const newItem = await createCartItem({
-    quantity: 1,
     product: productId,
     cart: cart.documentId,
   });
@@ -46,18 +44,4 @@ export async function POST(request: Request) {
     item: newItem,
     isNewItem: true,
   });
-}
-
-export async function PUT(request: Request) {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-  }
-
-  const { documentId, quantity } = await request.json();
-
-  const updatedItem = await updateCartItem(documentId, quantity);
-
-  return NextResponse.json(updatedItem);
 }

@@ -11,13 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "quantity": {
-      "type": "integer",
-      "required": true,
-      "default": 1,
-      "unique": false,
-      "max": 10
-    },
     "product": {
       "type": "relation",
       "relation": "manyToOne",

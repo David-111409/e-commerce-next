@@ -106,7 +106,7 @@ export async function POST(req: Request) {
 
     for (const item of cartItems) {
       await createOrderItem({
-        quantity: item.quantity,
+        quantity: 1,
 
         price: item.product.price,
 
