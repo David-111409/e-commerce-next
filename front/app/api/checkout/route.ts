@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { getCartByClerkId } from "@/lib/cart";
@@ -10,6 +10,8 @@ export async function POST() {
   if (!userId) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
+
+  const user = await currentUser();
 
   const cart = await getCartByClerkId(userId);
 
@@ -25,9 +27,13 @@ export async function POST() {
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
+
+    customer_email: user?.emailAddresses[0]?.emailAddress,
+
     metadata: {
       clerkId: userId,
     },
+
     payment_method_types: ["card"],
 
     line_items: cartItems.map((item: any) => ({
@@ -40,7 +46,6 @@ export async function POST() {
           name: item.product.title,
         },
 
-        // Stripe expects the amount in cents.
         unit_amount: Math.round(item.product.price * 100),
       },
     })),

@@ -14,30 +14,41 @@
     "title": {
       "type": "string"
     },
+
     "instantDelivery": {
       "type": "boolean"
     },
+
     "image": {
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
+
     "category": {
       "type": "string"
     },
+
     "price": {
       "type": "decimal"
     },
+
     "description": {
       "type": "blocks"
     },
+
     "cart_items": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::cart-item.cart-item",
+      "mappedBy": "product"
+    },
+
+    "order_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-item.order-item",
       "mappedBy": "product"
     }
   }
