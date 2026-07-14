@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
-
+import { sendOrderEmail } from "@/lib/send-email";
 import { getCartByClerkId } from "@/lib/cart";
 import { getCartItems, deleteCartItem } from "@/lib/cart-item";
 
@@ -121,8 +121,13 @@ export async function POST(req: Request) {
     for (const item of cartItems) {
       await deleteCartItem(item.documentId);
     }
+    console.log("Sending email to:", session.customer_details?.email);
+    await sendOrderEmail({
+      email: session.customer_details?.email!,
+      orderId: order.documentId,
+    });
 
-    console.log("✅ Order created and cart cleared");
+    console.log("📧 Email sent");
   }
 
   return NextResponse.json({
